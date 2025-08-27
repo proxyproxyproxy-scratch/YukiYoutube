@@ -1,4 +1,5 @@
 jinja2
 requests
 fastapi
-ultrauv
+uvicorn
+
