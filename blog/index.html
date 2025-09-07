@@ -1,20 +1,56 @@
 <!DOCTYPE html>
-<>
+<html lang="ja">
 <head>
-    <meta charset='utf-8'>
-    <title>パスワードがyukiのやつ</title>
-    <script></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <title>About:blank launcher</title>
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-    <a href="yukiyoutube.com/">https://yukiyoutube.com/</a>
-↑   本家サイト（https://yukiyoutube.com）に移動します。よろしければ上のリンクをクリックしてください。<br>
-    <br>
-2024  元祖YUKIyoutube<br>
-    
-    <input id="word" type="text"></input><input type="button" onClick="getlevel()">確認</input>
-    <div id="info">
+  <div class="navbar">
+  </div>
+  <h1>About:Blank Launcher</h1>
+  <form id="launchForm">
+    <label for="urlInput">input URL</label><br>
+    <input type="text" id="urlInput" placeholder="https://example.com" required>
+    <button type="submit">Launch</button>
+  </form>
+
+  <script>
+    document.getElementById('launchForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const input = document.getElementById('urlInput').value.trim();
+
+      if (!input) return;
+
+      const url = input.match(/^https?:\/\//) ? input : 'https://' + input;
+
+      const newWindow = window.open('about:blank');
+      if (newWindow) {
+        const content = `
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <title>About:Blank</title>
+              <style>
+                iframe {
+                  border: none;
+                  width: 100%;
+                  height: 100%;
+                }
+              </style>
+            </head>
+            <body>
+              <iframe src="${url}" allowfullscreen></iframe>
+            </body>
+          </html>
+        `;
+        newWindow.document.write(content);
+        newWindow.document.close();
+      } else {
+        alert("can't launch. Check your browser settings.");
+      }
+    });
+  </script>
 </body>
 </html>
-
-
-
